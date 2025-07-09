@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.oasis.app_common.widget.MySwipeRefreshLayout
+        android:id="@+id/srl_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.oasis.app_home.widget.NSParentLayout2
+            android:id="@+id/ns2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/home_rv_bg">
+
+            <com.zhpan.bannerview.BannerViewPager
+                android:id="@+id/top_view"
+                android:layout_width="match_parent"
+                android:layout_height="180dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bottom_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.oasis.app_home.widget.NSParentLayout2>
+    </com.oasis.app_common.widget.MySwipeRefreshLayout>
+</layout>

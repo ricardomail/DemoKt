@@ -1,0 +1,33 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+apply(from = "../dependencies.gradle")
+
+android {
+    namespace = "com.oasis.mydemokt"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.oasis.mydemokt"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+}
+
+dependencies {
+
+    implementation(project(":app_common"))
+    implementation(project(":app_home"))
+}
