@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.oasis.app_common.base.BaseActivity
 import com.oasis.app_home.ui.HomeFragment
+import com.oasis.app_me.ui.MyCollectFragment
 import com.oasis.mydemokt.R
 import com.oasis.mydemokt.databinding.ActivityMainBinding
 
@@ -58,7 +59,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         }
         initFragment()
-        fragmentList = mutableListOf(f1!!)
+        fragmentList = mutableListOf(f1!!, f2!!, f3!!, f4!!)
         switchFragment(0)
         mBind.fName = resources.getString(R.string.tab_home)
     }
@@ -67,19 +68,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         if (f1 == null) {
             f1 = HomeFragment()
         }
+        if (f2 == null) {
+            f2 = HomeFragment()
+        }
+        if (f3 == null) {
+            f3 = HomeFragment()
+        }
 //        if (f2 == null) {
 //            f2 = ProjectFragment()
 //        }
 //        if (f3 == null) {
 //            f3 = MainFragment()
 //        }
-//        if (f4 == null) {
-//            f4 = MyCollectFragment()
-//        }
+        if (f4 == null) {
+            f4 = MyCollectFragment()
+        }
     }
 
     private fun switchFragment(index: Int) {
-        if (index != 0) return
+//        if (index != 0) return
         val targetFragment = fragmentList[index]
         val oldFragment = fragmentList[oldFragmentIndex]
         oldFragmentIndex = index

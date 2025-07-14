@@ -42,13 +42,13 @@ class HomeRVAdapter(private var listener: HomeItemClickListener) :
 
             FOOT -> {
                 MyFootHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.foot_rv, parent, false)
+                    LayoutInflater.from(parent.context).inflate(com.oasis.app_common.R.layout.foot_rv, parent, false)
                 )
             }
 
             else -> {
                 MyLastHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.last_rv, parent, false)
+                    LayoutInflater.from(parent.context).inflate(com.oasis.app_common.R.layout.last_rv, parent, false)
                 )
             }
         }

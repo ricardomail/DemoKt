@@ -144,7 +144,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
 
     override fun onCollectClick(position: Int) {
         collectPosition = position
-        homeViewModel.collectEvent(list[position].id, !list[collectPosition].collect)
+        homeViewModel.collectEvent(list[position].id, list[collectPosition].collect)
     }
 
     private fun resetUI() {
