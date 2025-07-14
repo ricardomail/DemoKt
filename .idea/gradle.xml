@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app_common" />
             <option value="$PROJECT_DIR$/app_home" />
             <option value="$PROJECT_DIR$/app_me" />
+            <option value="$PROJECT_DIR$/app_network" />
             <option value="$PROJECT_DIR$/app_user" />
           </set>
         </option>

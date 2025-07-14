@@ -1,6 +1,6 @@
 package com.oasis.app_user.di
 
-import com.oasis.app_common.network.RetrofitManager
+import com.oasis.app_network.okhttp.RetrofitManager
 import com.oasis.app_user.api.UserApi
 import com.oasis.app_user.repo.LoginRepo
 import com.oasis.app_user.viewmodel.LoginViewModel

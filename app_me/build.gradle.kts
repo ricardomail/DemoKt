@@ -9,4 +9,6 @@ android {
 
 dependencies {
     implementation(project(":app_common"))
+    implementation(project(":app_network"))
+
 }

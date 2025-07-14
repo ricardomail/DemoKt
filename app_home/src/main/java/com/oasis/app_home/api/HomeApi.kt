@@ -1,8 +1,7 @@
 package com.oasis.app_home.api
-
-import com.oasis.app_common.network.BaseResp
 import com.oasis.app_home.bean.Article
 import com.oasis.app_home.bean.Banner
+import com.oasis.app_network.base.BaseResp
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path

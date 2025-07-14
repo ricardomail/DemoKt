@@ -1,7 +1,7 @@
 package com.oasis.app_me.api
 
-import com.oasis.app_common.network.BaseResp
 import com.oasis.app_me.bean.MyCollect
+import com.oasis.app_network.base.BaseResp
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

@@ -1,7 +1,7 @@
 package com.oasis.app_user.repo
 
-import com.oasis.app_common.base.BaseRepository
-import com.oasis.app_common.network.RespStateMutableLiveData
+import com.oasis.app_network.base.BaseRepository
+import com.oasis.app_network.okhttp.RespStateMutableLiveData
 import com.oasis.app_user.api.UserApi
 import com.oasis.app_user.bean.LoginBean
 

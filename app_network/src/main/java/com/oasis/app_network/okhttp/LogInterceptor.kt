@@ -1,4 +1,4 @@
-package com.oasis.app_common.network
+package com.oasis.app_network.okhttp
 
 import android.util.Log
 import okhttp3.Interceptor

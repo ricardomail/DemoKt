@@ -1,8 +1,8 @@
 package com.oasis.app_user.viewmodel
 
 import com.oasis.app_common.base.BaseViewModel
-import com.oasis.app_common.network.RespStateLiveData
-import com.oasis.app_common.network.RespStateMutableLiveData
+import com.oasis.app_network.okhttp.RespStateLiveData
+import com.oasis.app_network.okhttp.RespStateMutableLiveData
 import com.oasis.app_user.bean.LoginBean
 import com.oasis.app_user.repo.LoginRepo
 

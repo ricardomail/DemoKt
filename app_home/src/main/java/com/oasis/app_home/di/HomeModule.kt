@@ -1,9 +1,9 @@
 package com.oasis.app_home.di
 
-import com.oasis.app_common.network.RetrofitManager
 import com.oasis.app_home.api.HomeApi
 import com.oasis.app_home.repo.HomeRepo
 import com.oasis.app_home.viewmodel.HomeViewModel
+import com.oasis.app_network.okhttp.RetrofitManager
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

@@ -1,4 +1,4 @@
-package com.oasis.app_common.network
+package com.oasis.app_network.base
 
 class BaseResp<T> {
 

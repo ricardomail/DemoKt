@@ -1,13 +1,11 @@
 package com.oasis.app_home.ui
 
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.alibaba.android.arouter.launcher.ARouter
 import com.oasis.app_common.base.BaseVMFragment
-import com.oasis.app_common.network.BaseStateObserver
 import com.oasis.app_common.util.Constants
 import com.oasis.app_common.util.ToastUtil
 import com.oasis.app_home.R
@@ -19,6 +17,7 @@ import com.oasis.app_home.bean.Banner
 import com.oasis.app_home.databinding.FragmentHomeBinding
 import com.oasis.app_home.listener.HomeItemClickListener
 import com.oasis.app_home.viewmodel.HomeViewModel
+import com.oasis.app_network.base.BaseStateObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListener {

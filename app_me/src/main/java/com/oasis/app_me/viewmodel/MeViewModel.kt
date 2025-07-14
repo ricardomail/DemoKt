@@ -1,10 +1,10 @@
 package com.oasis.app_me.viewmodel
 
 import com.oasis.app_common.base.BaseViewModel
-import com.oasis.app_common.network.RespStateLiveData
-import com.oasis.app_common.network.RespStateMutableLiveData
 import com.oasis.app_me.bean.MyCollect
 import com.oasis.app_me.repo.MeRepo
+import com.oasis.app_network.okhttp.RespStateLiveData
+import com.oasis.app_network.okhttp.RespStateMutableLiveData
 
 class MeViewModel(private val meRepo: MeRepo) : BaseViewModel() {
 

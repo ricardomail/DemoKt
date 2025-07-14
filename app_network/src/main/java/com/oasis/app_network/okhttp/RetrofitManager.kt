@@ -1,8 +1,6 @@
-package com.oasis.app_common.network
+package com.oasis.app_network.okhttp
 
-import android.util.Log
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -13,9 +11,6 @@ object RetrofitManager {
     private var retrofit: Retrofit
 
     init {
-//        val logInterceptor = HttpLoggingInterceptor {
-//            Log.d("OkHttp Log: ", it)
-//        }
         val okHttpClient = OkHttpClient().newBuilder()
             .callTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)

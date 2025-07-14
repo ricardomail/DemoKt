@@ -13,8 +13,6 @@ android {
 
 dependencies {
     implementation(project(":app_common"))
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
+    implementation(project(":app_network"))
+
 }

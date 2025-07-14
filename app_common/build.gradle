@@ -40,10 +40,10 @@ dependencies {
     androidTestImplementation libs.androidx.espresso.core
 
     //oKHttp
-    implementation(libs.okhttp)
-    //noinspection UseTomlInstead
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-    //retrofit
-    api(libs.retrofit)
-    implementation(libs.converter.gson)
+//    implementation(libs.okhttp)
+//    //noinspection UseTomlInstead
+//    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+//    //retrofit
+//    api(libs.retrofit)
+//    implementation(libs.converter.gson)
 }
