@@ -138,6 +138,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
                 ToastUtil.showMsg("收藏成功")
                 true
             }
+            homeRVAdapter.notifyItemChanged(collectPosition)
         }
     }
 
