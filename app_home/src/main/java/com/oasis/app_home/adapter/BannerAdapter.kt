@@ -7,10 +7,6 @@ import com.oasis.app_home.bean.Banner
 import com.zhpan.bannerview.BaseBannerAdapter
 import com.zhpan.bannerview.BaseViewHolder
 
-/**
- * Created by stew on 8/3/22.
- * mail: stewforani@gmail.com
- */
 class BannerAdapter : BaseBannerAdapter<Banner>() {
 
     override fun bindData(

@@ -76,6 +76,7 @@ class HomeRVAdapter(private var listener: HomeItemClickListener) :
         }
     }
 
+    // TODO: 后期需要修改为constraintLayout 
     private fun refreshPosition(tag1: TextView, tag2: TextView, name: TextView) {
         if (tag1.visibility == View.VISIBLE) return
         if (tag1.visibility == View.GONE && tag2.visibility == View.GONE) {

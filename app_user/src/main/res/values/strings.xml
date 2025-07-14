@@ -1,0 +1,10 @@
+<resources>
+    <string name="login">登录</string>
+    <string name="back">返回</string>
+    <string name="title">Time Travel</string>
+    <string name="hint_username">请输入账号</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="do_login">点击登录</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_input_failed">输入有误</string>
+</resources>

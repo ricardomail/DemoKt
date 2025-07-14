@@ -26,3 +26,4 @@ rootProject.name = "MyDemoKt"
 include(":app")
 include(":app_common")
 include(":app_home")
+include(":app_user")

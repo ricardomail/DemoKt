@@ -9,10 +9,10 @@ import org.koin.android.BuildConfig
 
 class RouterTask : AnchorTask(ATConstants.ROUTER_TASK) {
     override fun run() {
-        if (BuildConfig.DEBUG) {
+//        if (BuildConfig.DEBUG) {
             ARouter.openLog()
             ARouter.openDebug()
-        }
+//        }
         ARouter.init(App.instance)
     }
 

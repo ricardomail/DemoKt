@@ -20,7 +20,7 @@ object LoadingViewUtil {
         }.takeIf { it.window != null }?.apply {
             window?.setBackgroundDrawable(ColorDrawable(0))
         }
-        // TODO: bug 闪退 
+        // TODO: bug 闪退
         dialog?.takeIf { !it.isShowing }?.show()
     }
 
