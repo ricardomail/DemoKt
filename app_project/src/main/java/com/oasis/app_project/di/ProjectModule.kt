@@ -20,7 +20,7 @@ val projectModule = module {
 //        }
 //    }
 
-    scope<ProjectFragment> {
-        viewModel { ProjectViewModel(get()) }
-    }
+//    scope<ProjectFragment> {
+//        viewModel { ProjectViewModel(get()) }
+//    }
 }

@@ -33,7 +33,7 @@ class ProjectFragment : BaseVMFragment<FragmentProjectBinding>() {
             f.add(ProjectChildFragment.newInstance(projectType.id, index))
         }
         mBind.viewpager.adapter = ProVPAdapter(this, f)
-        mBind.viewpager.offscreenPageLimit = f.size
+        mBind.viewpager.offscreenPageLimit = 3
         TabLayoutMediator(mBind.tabLayout, mBind.viewpager) { tab, position ->
             tab.text = l[position]
         }.attach()
