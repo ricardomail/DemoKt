@@ -4,6 +4,7 @@ import com.oasis.app_common.di.ScopeOwner
 import com.oasis.app_network.okhttp.RetrofitManager
 import com.oasis.app_project.api.ProjectApi
 import com.oasis.app_project.repo.ProjectRepo
+import com.oasis.app_project.ui.ProjectFragment
 import com.oasis.app_project.viewmodel.ProjectViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -18,4 +19,8 @@ val projectModule = module {
 //            ProjectViewModel(get())
 //        }
 //    }
+
+    scope<ProjectFragment> {
+        viewModel { ProjectViewModel(get()) }
+    }
 }
