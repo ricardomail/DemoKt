@@ -14,7 +14,6 @@ typealias vmBLOCK = suspend () -> Unit
 open class BaseViewModel : ViewModel() {
 
     protected fun launch(block: vmBLOCK) {
-//        val scope = CoroutineScope(EmptyCoroutineContext)
         LogUtils.d("load", "viewModelScope status ${viewModelScope.isActive}")
         viewModelScope.launch(Dispatchers.Main.immediate) {
             try {

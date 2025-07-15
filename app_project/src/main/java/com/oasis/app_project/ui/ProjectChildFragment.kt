@@ -17,6 +17,7 @@ import com.oasis.app_project.listener.ProItemClickListener
 import com.oasis.app_project.viewmodel.ProjectViewModel
 import com.xj.anchortask.library.log.LogUtils
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
@@ -24,7 +25,7 @@ import org.koin.core.qualifier.named
 class ProjectChildFragment private constructor() : BaseVMFragment<FragmentProjectChildBinding>(),
     ProItemClickListener {
     var collectPosition: Int = 0
-
+    private val fragmentId = "fragment_${System.currentTimeMillis()}"
     companion object {
         private const val C_ID: String = "cid"
         private const val INDEX: String = "index"
@@ -41,7 +42,7 @@ class ProjectChildFragment private constructor() : BaseVMFragment<FragmentProjec
 
     private var currentId: Int = 0
     private var currentIndex: Int = 0
-    private val projectViewModel: ProjectViewModel by viewModel()
+    private val projectViewModel: ProjectViewModel by inject { parametersOf(fragmentId) }
     private lateinit var proRVAdapter: ProRVAdapter
     private lateinit var lm: LinearLayoutManager
     private var isLoadMore = false

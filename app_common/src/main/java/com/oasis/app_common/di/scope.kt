@@ -5,8 +5,7 @@ import org.koin.core.scope.Scope
 
 // ScopeOwner.kt
 interface ScopeOwner {
-    val scope: Scope
-    val scopeId: String
+
 }
 
 // ScopeProvider.kt

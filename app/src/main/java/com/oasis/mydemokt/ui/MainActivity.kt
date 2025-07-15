@@ -17,10 +17,13 @@ import com.oasis.mydemokt.R
 import com.oasis.mydemokt.databinding.ActivityMainBinding
 import org.koin.android.ext.android.getKoin
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.KoinScopeComponent
 import org.koin.core.qualifier.Qualifier
+import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding>(), ScopeOwner {
+
     private lateinit var fragmentList: MutableList<Fragment>
     var oldFragmentIndex = 0
     private var pw: PopupWindow? = null
