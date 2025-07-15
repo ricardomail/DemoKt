@@ -9,6 +9,7 @@ import com.oasis.app_project.adapter.ProVPAdapter
 import com.oasis.app_project.bean.ProjectType
 import com.oasis.app_project.databinding.FragmentProjectBinding
 import com.oasis.app_project.viewmodel.ProjectViewModel
+import com.xj.anchortask.library.log.LogUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProjectFragment : BaseVMFragment<FragmentProjectBinding>() {
@@ -32,13 +33,15 @@ class ProjectFragment : BaseVMFragment<FragmentProjectBinding>() {
             f.add(ProjectChildFragment.newInstance(projectType.id, index))
         }
         mBind.viewpager.adapter = ProVPAdapter(this, f)
-        mBind.viewpager.offscreenPageLimit = 1
+        mBind.viewpager.offscreenPageLimit = f.size
         TabLayoutMediator(mBind.tabLayout, mBind.viewpager) { tab, position ->
             tab.text = l[position]
         }.attach()
     }
 
     override fun init() {
+        LogUtils.d("load", "parent Fragment init : $this")
+        LogUtils.d("load", "parent viewModel init : $projectViewModel")
         projectViewModel.getProTypeList()
     }
 

@@ -14,7 +14,6 @@ typealias vmBLOCK = suspend () -> Unit
 open class BaseViewModel : ViewModel() {
 
     protected fun launch(block: vmBLOCK) {
-        LogUtils.d("load", "viewModelScope status ${viewModelScope.isActive}")
         viewModelScope.launch(Dispatchers.Main.immediate) {
             try {
                 block.invoke()
@@ -25,7 +24,7 @@ open class BaseViewModel : ViewModel() {
     }
 
     override fun onCleared() {
-        LogUtils.d("load", "onClear")
+        LogUtils.d("load", "onClear $this")
         super.onCleared()
     }
 

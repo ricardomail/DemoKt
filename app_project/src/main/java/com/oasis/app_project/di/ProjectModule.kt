@@ -12,10 +12,10 @@ val projectModule = module {
     single { RetrofitManager.getService(ProjectApi::class.java) }
     single { ProjectRepo(get()) }
     viewModel { ProjectViewModel(get()) }
-    scope<ScopeOwner>{
-        scoped { (fragmentId: String) ->
-            // 按 fragment ID 创建独立的 ViewModel
-            ProjectViewModel(get())
-        }
-    }
+//    scope<ScopeOwner>{
+//        scoped { (fragmentId: String) ->
+//            // 按 fragment ID 创建独立的 ViewModel
+//            ProjectViewModel(get())
+//        }
+//    }
 }

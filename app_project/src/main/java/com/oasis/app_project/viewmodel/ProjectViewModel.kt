@@ -25,12 +25,10 @@ class ProjectViewModel(private val repo: ProjectRepo) : BaseViewModel() {
     }
 
     fun getProList(currentPage: Int, cid: Int) = launch {
-        LogUtils.d("load", "launch currentId $cid")
         repo.getProList(currentPage, cid, _proList)
     }
 
     fun collectEvent(id: Int, detach: Boolean) = launch {
-        Log.d("collectEvent", "collectEvent: $detach")
         if (detach) {
             repo.unCollect(id, _collectData)
         } else {

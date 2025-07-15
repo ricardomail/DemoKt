@@ -16,8 +16,6 @@ class ProjectRepo(private val api: ProjectApi) : BaseRepository() {
     }
 
     suspend fun getProList(currentPage: Int, cid: Int, data: RespStateMutableLiveData<Project>){
-        LogUtils.d("load", "repo currentId $cid")
-        LogUtils.d("load", "----------------")
         dealResp(data) {
             api.getProList(currentPage, PAGE_SIZE, cid)
         }

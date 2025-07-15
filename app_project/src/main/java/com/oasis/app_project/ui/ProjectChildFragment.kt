@@ -42,7 +42,7 @@ class ProjectChildFragment private constructor() : BaseVMFragment<FragmentProjec
 
     private var currentId: Int = 0
     private var currentIndex: Int = 0
-    private val projectViewModel: ProjectViewModel by inject { parametersOf(fragmentId) }
+    private val projectViewModel: ProjectViewModel by viewModel()
     private lateinit var proRVAdapter: ProRVAdapter
     private lateinit var lm: LinearLayoutManager
     private var isLoadMore = false
@@ -55,7 +55,8 @@ class ProjectChildFragment private constructor() : BaseVMFragment<FragmentProjec
 
 
     override fun init() {
-        LogUtils.d("load", "fragment init cid: $currentId")
+        LogUtils.d("load", "fragment init : $this")
+        LogUtils.d("load", "viewModel init : $projectViewModel")
         arguments?.let {
             currentId = it.getInt(C_ID)
             currentIndex = it.getInt(INDEX)

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 apply(from = "../dependencies.gradle")
 
@@ -34,4 +35,8 @@ dependencies {
     implementation(project(":app_me"))
     implementation(project(":app_project"))
     implementation(project(":app_network"))
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
 }
