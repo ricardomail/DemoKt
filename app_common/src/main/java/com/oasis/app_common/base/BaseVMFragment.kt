@@ -28,7 +28,7 @@ abstract class BaseVMFragment<T : ViewDataBinding> : BaseFragment<T>() {
         }
     }
 
-    private fun lazyLoad() {
+    open fun lazyLoad() {
 
     }
 

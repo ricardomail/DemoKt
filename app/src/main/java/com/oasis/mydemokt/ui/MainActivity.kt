@@ -8,10 +8,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.oasis.app_common.base.BaseActivity
+import com.oasis.app_common.di.ScopeOwner
+import com.oasis.app_common.di.ScopeProvider
 import com.oasis.app_home.ui.HomeFragment
 import com.oasis.app_me.ui.MyCollectFragment
+import com.oasis.app_project.ui.ProjectFragment
 import com.oasis.mydemokt.R
 import com.oasis.mydemokt.databinding.ActivityMainBinding
+import org.koin.android.ext.android.getKoin
+import org.koin.core.component.KoinComponent
+import org.koin.core.qualifier.Qualifier
+import org.koin.core.scope.Scope
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     private lateinit var fragmentList: MutableList<Fragment>
@@ -69,7 +76,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             f1 = HomeFragment()
         }
         if (f2 == null) {
-            f2 = HomeFragment()
+            f2 = ProjectFragment()
         }
         if (f3 == null) {
             f3 = HomeFragment()
@@ -103,6 +110,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun showPop() {
 
     }
-
-
 }

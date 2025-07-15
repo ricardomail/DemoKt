@@ -32,5 +32,6 @@ dependencies {
     implementation(project(":app_home"))
     implementation(project(":app_user"))
     implementation(project(":app_me"))
+    implementation(project(":app_project"))
     implementation(project(":app_network"))
 }

@@ -4,6 +4,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.oasis.app_common.util.Constants
 import com.oasis.app_common.util.ToastUtil
 import com.oasis.app_network.okhttp.RespStateMutableLiveData
+import com.xj.anchortask.library.log.LogUtils
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.UnknownHostException
@@ -43,7 +44,8 @@ open class BaseRepository {
                 }
 
                 else -> {
-                    ToastUtil.showMsg("未知错误！")
+                    LogUtils.e("error", "${e.message}")
+                    ToastUtil.showMsg("未知错误！${e.message}")
                 }
             }
             result.responseState = BaseResp.ResponseState.REQUEST_ERROR
