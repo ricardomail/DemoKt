@@ -12,6 +12,7 @@ import com.oasis.app_common.di.ScopeOwner
 import com.oasis.app_common.di.ScopeProvider
 import com.oasis.app_home.ui.HomeFragment
 import com.oasis.app_me.ui.MyCollectFragment
+import com.oasis.app_navigation.ui.MainFragment
 import com.oasis.app_project.ui.ProjectFragment
 import com.oasis.mydemokt.R
 import com.oasis.mydemokt.databinding.ActivityMainBinding
@@ -82,7 +83,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ScopeOwner {
             f2 = ProjectFragment()
         }
         if (f3 == null) {
-            f3 = HomeFragment()
+            f3 = MainFragment()
         }
 //        if (f2 == null) {
 //            f2 = ProjectFragment()

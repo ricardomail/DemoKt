@@ -2,6 +2,7 @@ package com.oasis.mydemokt.init_task
 
 import com.oasis.app_home.di.homeModule
 import com.oasis.app_me.di.myModule
+import com.oasis.app_navigation.di.naviModule
 import com.oasis.app_project.di.projectModule
 import com.oasis.app_user.di.userModule
 import com.oasis.mydemokt.App
@@ -11,7 +12,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
 class KoinTask : AnchorTask(ATConstants.KOIN_TASK) {
-    private val modules = mutableListOf(homeModule, userModule, myModule, projectModule)
+    private val modules = mutableListOf(homeModule, userModule, myModule, projectModule, naviModule)
     override fun run() {
         startKoin {
             androidLogger()

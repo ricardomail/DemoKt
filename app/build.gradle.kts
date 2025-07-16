@@ -34,6 +34,7 @@ dependencies {
     implementation(project(":app_user"))
     implementation(project(":app_me"))
     implementation(project(":app_project"))
+    implementation(project(":app_navigation"))
     implementation(project(":app_network"))
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
