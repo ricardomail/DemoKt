@@ -1,6 +1,8 @@
 package com.oasis.app_home.adapter
 
+import android.graphics.Rect
 import android.view.LayoutInflater
+import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -42,13 +44,15 @@ class HomeRVAdapter(private var listener: HomeItemClickListener) :
 
             FOOT -> {
                 MyFootHolder(
-                    LayoutInflater.from(parent.context).inflate(com.oasis.app_common.R.layout.foot_rv, parent, false)
+                    LayoutInflater.from(parent.context)
+                        .inflate(com.oasis.app_common.R.layout.foot_rv, parent, false)
                 )
             }
 
             else -> {
                 MyLastHolder(
-                    LayoutInflater.from(parent.context).inflate(com.oasis.app_common.R.layout.last_rv, parent, false)
+                    LayoutInflater.from(parent.context)
+                        .inflate(com.oasis.app_common.R.layout.last_rv, parent, false)
                 )
             }
         }
@@ -72,6 +76,16 @@ class HomeRVAdapter(private var listener: HomeItemClickListener) :
             holder.itemView.tag = position
             holder.itemView.setOnClickListener(this)
             holder.collect.tag = position
+            // 扩大收藏的点击范围
+            holder.itemView.post {
+                val hitRect = Rect()
+                holder.collect.getHitRect(hitRect)
+                hitRect.left -= 20f.dp2px()
+                hitRect.top -= 20f.dp2px()
+                hitRect.right += 20f.dp2px()
+                hitRect.bottom += 20f.dp2px()
+                holder.itemView.touchDelegate = TouchDelegate(hitRect, holder.collect)
+            }
             holder.collect.setOnClickListener(this)
         }
     }
