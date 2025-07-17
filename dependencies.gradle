@@ -51,7 +51,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
     //koin with mavenCentral
-    implementation "io.insert-koin:koin-android:3.4.1"
+    implementation "io.insert-koin:koin-android:3.5.0"
+
 
     //banner
     implementation 'com.github.zhpanvip:bannerviewpager:3.5.12'

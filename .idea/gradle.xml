@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/app_network" />
             <option value="$PROJECT_DIR$/app_project" />
             <option value="$PROJECT_DIR$/app_user" />
+            <option value="$PROJECT_DIR$/app_web" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

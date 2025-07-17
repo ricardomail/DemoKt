@@ -23,7 +23,7 @@ class Constants {
         const val PATH_APP: String = "/kotlinbox/exp/RestartAppActivity"
         const val PATH_PICK_IMAGE: String = "/kotlinbox/exp/PickImageActivity"
 
-        const val PATH_WEB: String = "/kb_web/ui/WebActivity"
+        const val PATH_WEB: String = "/app_web/ui/WebActivity"
         const val PATH_LOGIN: String = "/app_user/ui/LoginActivity"
 
         //kv
