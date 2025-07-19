@@ -1,62 +1,74 @@
 package com.oasis.app_common.util
 
-import android.app.Application
-import android.util.Log
-import okio.BufferedSink
-import okio.Sink
-import okio.appendingSink
-import okio.buffer
-import java.io.File
-import java.util.concurrent.Executors
+import android.content.Context
+import com.elvishew.xlog.LogConfiguration
+import com.elvishew.xlog.LogLevel
+import com.elvishew.xlog.XLog
+import com.elvishew.xlog.interceptor.BlacklistTagsFilterInterceptor
+import com.elvishew.xlog.printer.AndroidPrinter
+import com.elvishew.xlog.printer.ConsolePrinter
+import com.elvishew.xlog.printer.Printer
+import com.elvishew.xlog.printer.file.FilePrinter
+
 
 /**
  * Created by stew on 2023/5/16.
  * mail: stewforani@gmail.com
  */
 object AppLogUtil {
-    private var mContext: Application? = null
-    private var logFile: File? = null
-    private var sink: Sink? = null
-    private var bufferedSink: BufferedSink? = null
-    private val logThread = Executors.newFixedThreadPool(1)
+    fun init(context: Context) {
+        val config = LogConfiguration.Builder()
+            .logLevel(LogLevel.ALL)
+            .tag("APP_TAG")
+            .apply {
+                // 可以添加判断 比如debug模式下打印
+                enableThreadInfo()
+                enableStackTrace(2)
+            }.enableBorder()
+            .addInterceptor(BlacklistTagsFilterInterceptor("")) // 添加黑名单
+            .build()
+        val androidPrinter = AndroidPrinter(true)
+        val consolePrinter: Printer = ConsolePrinter()
+        val filePrinter =
+            FilePrinter.Builder(context.getExternalFilesDir(null)?.absolutePath + "/logs").build()
+        XLog.init(config, androidPrinter, consolePrinter, filePrinter)
 
-    private fun runOnWorkerThread(runnable: Runnable?) {
-        logThread.execute(runnable)
     }
 
-    fun init(context: Application) {
-        mContext = context
+    fun d(message: String) {
+        XLog.d(message)
     }
 
-    fun addLifeLog(data: String?) {
-        runOnWorkerThread(Runnable {
-            try {
-                Log.d("addLifeLog", "addLifeLog: 1")
-                val path = mContext!!.getExternalFilesDir(null).toString() + "/logs/"
-                if (logFile == null) {
-                    logFile = File(path, "lifelog.txt")
-                }
-                if (!logFile!!.exists()) {
-                    Log.d("addLifeLog", "addLifeLog: 2")
-                    val dir = File(path)
-                    if (dir.mkdirs()) {
-                        if (logFile!!.createNewFile()) {
-                            Log.d("addLifeLog", "addLifeLog: 3")
-                        }
-                    }
-                }
-                Log.d("addLifeLog", "addLifeLog: 4")
-                sink = logFile!!.appendingSink()
-                bufferedSink = sink!!.buffer()
-                bufferedSink!!.writeUtf8(System.currentTimeMillis().toString())
-                bufferedSink!!.writeUtf8(" ----- ")
-                bufferedSink!!.writeUtf8(data!!)
-                bufferedSink!!.writeUtf8("\n")
-                bufferedSink!!.flush()
-                sink!!.close()
-            } catch (e: Exception) {
-                throw RuntimeException(e)
-            }
-        })
+    fun <T> d(collection: Array<T>) {
+        XLog.d(collection)
     }
+
+    fun d(map: Map<Any, Any>) {
+        XLog.d(map)
+    }
+
+    fun i(message: String) {
+        XLog.i(message)
+    }
+
+    fun <T> i(collection: Array<T>) {
+        XLog.i(collection)
+    }
+
+    fun i(map: Map<Any, Any>) {
+        XLog.i(map)
+    }
+
+    fun e(message: String, throws: Throws) {
+        XLog.e(message, throws)
+    }
+
+    fun json(message: String) {
+        XLog.json(message)
+    }
+
+    fun xml(message: String) {
+        XLog.xml(message)
+    }
+
 }

@@ -15,12 +15,7 @@ import com.oasis.app_project.bean.ProjectDetail
 import com.oasis.app_project.databinding.FragmentProjectChildBinding
 import com.oasis.app_project.listener.ProItemClickListener
 import com.oasis.app_project.viewmodel.ProjectViewModel
-import com.xj.anchortask.library.log.LogUtils
-import org.koin.android.ext.android.get
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
-import org.koin.core.qualifier.named
 
 class ProjectChildFragment private constructor() : BaseVMFragment<FragmentProjectChildBinding>(),
     ProItemClickListener {
@@ -55,8 +50,6 @@ class ProjectChildFragment private constructor() : BaseVMFragment<FragmentProjec
 
 
     override fun init() {
-        LogUtils.d("load", "fragment init : $this")
-        LogUtils.d("load", "viewModel init : $projectViewModel")
         arguments?.let {
             currentId = it.getInt(C_ID)
             currentIndex = it.getInt(INDEX)
@@ -153,7 +146,6 @@ class ProjectChildFragment private constructor() : BaseVMFragment<FragmentProjec
     }
 
     override fun onDestroy() {
-        LogUtils.d("load", "fragment destory cid: $currentId")
         super.onDestroy()
     }
 }

@@ -9,7 +9,6 @@ import com.oasis.app_project.adapter.ProVPAdapter
 import com.oasis.app_project.bean.ProjectType
 import com.oasis.app_project.databinding.FragmentProjectBinding
 import com.oasis.app_project.viewmodel.ProjectViewModel
-import com.xj.anchortask.library.log.LogUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProjectFragment : BaseVMFragment<FragmentProjectBinding>() {
@@ -40,8 +39,6 @@ class ProjectFragment : BaseVMFragment<FragmentProjectBinding>() {
     }
 
     override fun init() {
-        LogUtils.d("load", "parent Fragment init : $this")
-        LogUtils.d("load", "parent viewModel init : $projectViewModel")
         projectViewModel.getProTypeList()
     }
 

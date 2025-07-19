@@ -92,7 +92,6 @@ class MyCollectFragment : BaseVMFragment<FragmentCollectBinding>() {
                 (lm.findLastVisibleItemPosition() + 1) == collectRvAdapter.itemCount &&
                 !isLoadMore && !collectRvAdapter.isLastPage
             ) {
-                Log.d(TAG, "onScrollStateChanged: last-----")
                 isLoadMore = true
                 getCollectList(currentPage + 1)
             }

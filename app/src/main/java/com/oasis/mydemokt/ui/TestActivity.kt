@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.oasis.app_common.base.BaseActivity
+import com.oasis.app_common.util.AppLogUtil
 import com.oasis.mydemokt.R
 import com.oasis.mydemokt.Test
 import com.oasis.mydemokt.databinding.ActivityTestBinding
@@ -18,6 +19,7 @@ import org.koin.androidx.scope.activityScope
 import org.koin.androidx.scope.scope
 import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
+import kotlin.jvm.Throws
 
 class TestActivity : BaseActivity<ActivityTestBinding>() {
     // 定义作用域ID，确保唯一性（通常使用activity的hashCode）
@@ -40,8 +42,8 @@ class TestActivity : BaseActivity<ActivityTestBinding>() {
     }
 
     override fun init() {
-        LogUtils.d("test", "$test")
         mBind.button.setOnClickListener {
+            AppLogUtil.i("Click button to jump page")
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
