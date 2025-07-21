@@ -17,7 +17,7 @@ import com.oasis.app_home.bean.Banner
 import com.oasis.app_home.databinding.FragmentHomeBinding
 import com.oasis.app_home.listener.HomeItemClickListener
 import com.oasis.app_home.viewmodel.HomeViewModel
-import com.oasis.app_network.base.BaseStateObserver
+import com.oasis.app_common.base.BaseStateObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListener {

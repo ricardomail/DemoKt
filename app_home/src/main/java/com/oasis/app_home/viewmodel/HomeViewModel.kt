@@ -4,8 +4,8 @@ import com.oasis.app_common.base.BaseViewModel
 import com.oasis.app_home.bean.Article
 import com.oasis.app_home.bean.Banner
 import com.oasis.app_home.repo.HomeRepo
-import com.oasis.app_network.okhttp.RespStateLiveData
-import com.oasis.app_network.okhttp.RespStateMutableLiveData
+import com.oasis.app_common.base.RespStateLiveData
+import com.oasis.app_common.base.RespStateMutableLiveData
 
 class HomeViewModel(private val repo: HomeRepo) : BaseViewModel() {
 

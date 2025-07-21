@@ -22,8 +22,8 @@ object AppLogUtil {
             .tag("APP_TAG")
             .apply {
                 // 可以添加判断 比如debug模式下打印
-                enableThreadInfo()
-                enableStackTrace(2)
+//                enableThreadInfo()
+//                enableStackTrace(2)
             }.enableBorder()
             .addInterceptor(BlacklistTagsFilterInterceptor("")) // 添加黑名单
             .build()

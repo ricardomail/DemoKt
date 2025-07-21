@@ -1,11 +1,10 @@
 package com.oasis.app_project.repo
 
-import com.oasis.app_network.base.BaseRepository
-import com.oasis.app_network.okhttp.RespStateMutableLiveData
+import com.oasis.app_common.base.BaseRepository
+import com.oasis.app_common.base.RespStateMutableLiveData
 import com.oasis.app_project.api.ProjectApi
 import com.oasis.app_project.bean.Project
 import com.oasis.app_project.bean.ProjectType
-import com.xj.anchortask.library.log.LogUtils
 
 private const val PAGE_SIZE = 10
 

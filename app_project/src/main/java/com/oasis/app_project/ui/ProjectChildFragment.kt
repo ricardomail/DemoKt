@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oasis.app_common.base.BaseVMFragment
 import com.oasis.app_common.util.LoadingViewUtil
 import com.oasis.app_common.util.ToastUtil
-import com.oasis.app_network.base.BaseStateObserver
+import com.oasis.app_common.base.BaseStateObserver
 import com.oasis.app_project.R
 import com.oasis.app_project.adapter.ProRVAdapter
 import com.oasis.app_project.bean.Project
@@ -21,6 +21,7 @@ class ProjectChildFragment private constructor() : BaseVMFragment<FragmentProjec
     ProItemClickListener {
     var collectPosition: Int = 0
     private val fragmentId = "fragment_${System.currentTimeMillis()}"
+
     companion object {
         private const val C_ID: String = "cid"
         private const val INDEX: String = "index"
@@ -110,15 +111,15 @@ class ProjectChildFragment private constructor() : BaseVMFragment<FragmentProjec
 
     private val collectDataObserver = object : BaseStateObserver<String>() {
         override fun getRespDataStart() {
-            LoadingViewUtil.showLoadingDialog(requireContext(), true)
+            showLoadingDialog()
         }
 
         override fun getRespDataEnd() {
-            LoadingViewUtil.dismissLoadingDialog()
+            dismissLoadingDialog()
         }
 
         override fun getRespSuccess() {
-            LoadingViewUtil.dismissLoadingDialog()
+            dismissLoadingDialog()
             ToastUtil.showMsg(if (list[collectPosition].collect) "取消收藏" else "收藏成功")
             list[collectPosition].collect = !list[collectPosition].collect
             proRVAdapter.notifyItemChanged(collectPosition)

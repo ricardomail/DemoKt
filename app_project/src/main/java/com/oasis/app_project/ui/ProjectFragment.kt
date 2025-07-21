@@ -3,7 +3,7 @@ package com.oasis.app_project.ui
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.oasis.app_common.base.BaseVMFragment
-import com.oasis.app_network.base.BaseStateObserver
+import com.oasis.app_common.base.BaseStateObserver
 import com.oasis.app_project.R
 import com.oasis.app_project.adapter.ProVPAdapter
 import com.oasis.app_project.bean.ProjectType

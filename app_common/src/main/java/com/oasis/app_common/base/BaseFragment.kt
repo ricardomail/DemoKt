@@ -14,6 +14,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     protected val TAG = this.javaClass.simpleName
     protected lateinit var mBind: T
     protected lateinit var mContext: Context
+    private val loading = LoadingViewUtil()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -33,10 +34,10 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     }
 
     protected fun showLoadingDialog() {
-        LoadingViewUtil.showLoadingDialog(mContext, true)
+        loading.showLoadingDialog(mContext, true)
     }
 
     protected fun dismissLoadingDialog() {
-        LoadingViewUtil.dismissLoadingDialog()
+        loading.dismissLoadingDialog()
     }
 }

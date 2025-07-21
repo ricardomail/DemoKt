@@ -1,8 +1,8 @@
 package com.oasis.app_project.viewmodel
 
 import com.oasis.app_common.ScopeViewModel
-import com.oasis.app_network.okhttp.RespStateLiveData
-import com.oasis.app_network.okhttp.RespStateMutableLiveData
+import com.oasis.app_common.base.RespStateLiveData
+import com.oasis.app_common.base.RespStateMutableLiveData
 import com.oasis.app_project.bean.Project
 import com.oasis.app_project.bean.ProjectType
 import com.oasis.app_project.repo.ProjectRepo

@@ -1,6 +1,5 @@
-package com.oasis.app_network.okhttp
+package com.oasis.app_common.base
 
 import androidx.lifecycle.LiveData
-import com.oasis.app_network.base.BaseResp
 
 open class RespStateLiveData<T>: LiveData<BaseResp<T>>()

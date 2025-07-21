@@ -13,7 +13,7 @@ import com.oasis.app_navigation.adapter.NaviRVAdapter
 import com.oasis.app_navigation.bean.Navi
 import com.oasis.app_navigation.databinding.FragmentSysBinding
 import com.oasis.app_navigation.viewmodel.NaviViewModel
-import com.oasis.app_network.base.BaseStateObserver
+import com.oasis.app_common.base.BaseStateObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NaviFragment : BaseVMFragment<FragmentSysBinding>() {

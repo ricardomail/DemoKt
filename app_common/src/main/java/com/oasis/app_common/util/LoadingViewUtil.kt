@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import com.oasis.app_common.R
 
-object LoadingViewUtil {
+class LoadingViewUtil {
 
     private var dialog: AlertDialog? = null
 

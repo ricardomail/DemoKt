@@ -1,6 +1,6 @@
 package com.oasis.app_project.api
 
-import com.oasis.app_network.base.BaseResp
+import com.oasis.app_common.base.BaseResp
 import com.oasis.app_project.bean.Project
 import com.oasis.app_project.bean.ProjectType
 import retrofit2.http.GET

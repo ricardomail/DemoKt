@@ -1,4 +1,4 @@
-package com.oasis.app_network.base
+package com.oasis.app_common.base
 
 import androidx.lifecycle.Observer
 

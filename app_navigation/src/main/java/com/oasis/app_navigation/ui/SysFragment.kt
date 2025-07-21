@@ -12,7 +12,7 @@ import com.oasis.app_navigation.adapter.SysRVAdapter
 import com.oasis.app_navigation.bean.Sys
 import com.oasis.app_navigation.databinding.FragmentSysBinding
 import com.oasis.app_navigation.viewmodel.NaviViewModel
-import com.oasis.app_network.base.BaseStateObserver
+import com.oasis.app_common.base.BaseStateObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SysFragment : BaseVMFragment<FragmentSysBinding>() {

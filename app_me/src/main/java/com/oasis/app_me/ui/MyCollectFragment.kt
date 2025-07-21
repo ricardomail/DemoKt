@@ -1,6 +1,5 @@
 package com.oasis.app_me.ui
 
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
@@ -13,7 +12,7 @@ import com.oasis.app_me.bean.MyCollectDetail
 import com.oasis.app_me.databinding.FragmentCollectBinding
 import com.oasis.app_me.listener.CollectItemClickListener
 import com.oasis.app_me.viewmodel.MeViewModel
-import com.oasis.app_network.base.BaseStateObserver
+import com.oasis.app_common.base.BaseStateObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyCollectFragment : BaseVMFragment<FragmentCollectBinding>() {

@@ -4,8 +4,8 @@ import com.oasis.app_common.ScopeViewModel
 import com.oasis.app_navigation.bean.Navi
 import com.oasis.app_navigation.bean.Sys
 import com.oasis.app_navigation.repo.NaviRepo
-import com.oasis.app_network.okhttp.RespStateLiveData
-import com.oasis.app_network.okhttp.RespStateMutableLiveData
+import com.oasis.app_common.base.RespStateLiveData
+import com.oasis.app_common.base.RespStateMutableLiveData
 import kotlinx.coroutines.launch
 
 class NaviViewModel(private val repo: NaviRepo) : ScopeViewModel() {

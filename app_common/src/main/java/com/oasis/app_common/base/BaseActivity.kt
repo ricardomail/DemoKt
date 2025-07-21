@@ -1,13 +1,16 @@
 package com.oasis.app_common.base
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.oasis.app_common.util.AppLogUtil
 import com.oasis.app_common.util.LoadingViewUtil
 
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
     protected val TAG = this.javaClass.simpleName
+    private val loading = LoadingViewUtil()
 
     protected lateinit var mBind: T
 
@@ -29,11 +32,12 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
     }
 
     protected fun showLoadingDialog() {
-        LoadingViewUtil.showLoadingDialog(this, true)
+        AppLogUtil.i(TAG)
+        loading.showLoadingDialog(this, true)
     }
 
     protected fun dismissLoadingDialog() {
-        LoadingViewUtil.dismissLoadingDialog()
+        loading.dismissLoadingDialog()
     }
 
 }
