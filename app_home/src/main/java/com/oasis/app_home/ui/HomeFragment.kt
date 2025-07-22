@@ -1,6 +1,9 @@
 package com.oasis.app_home.ui
 
 import android.util.Log
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -18,6 +21,12 @@ import com.oasis.app_home.databinding.FragmentHomeBinding
 import com.oasis.app_home.listener.HomeItemClickListener
 import com.oasis.app_home.viewmodel.HomeViewModel
 import com.oasis.app_common.base.BaseStateObserver
+import com.oasis.app_common.base.UiState
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListener {
@@ -30,11 +39,35 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
 
 
     override fun observe() {
-        homeViewModel.bannerList.observe(this, bannerObserver)
+//        homeViewModel.bannerList.observe(this, bannerObserver)
+//        homeViewModel.article.observe(this, articleObserver)
+//        homeViewModel.collectData.observe(this, collectObserver)
+        lifecycleScope.launch {
 
-        homeViewModel.article.observe(this, articleObserver)
+            launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    homeViewModel.bannerListFlow.filter { it is UiState.Success }.map {
+                        (it as UiState.Success).data
+                    }.filterNotNull().filter { it.isNotEmpty() }.collect { result ->
+                        mBind.topView.refreshData(result)
+                    }
+                }
+            }
 
-        homeViewModel.collectData.observe(this, collectObserver)
+            launch {
+                homeViewModel.articleFlow.collect { state ->
+                    handleArticleData(state)
+                }
+            }
+
+            launch {
+                homeViewModel.collectFlow.collect { state ->
+                    handleCollectData(state)
+                }
+            }
+
+        }
+
     }
 
     override fun init() {
@@ -53,14 +86,15 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
         mBind.srlHome.setColorSchemeResources(com.oasis.app_common.R.color.theme_color)
         mBind.srlHome.setOnRefreshListener {
             homeRVAdapter.isLastPage = false
+            currentPage = 0
             getHomeData()
         }
         getHomeData()
     }
 
     private fun getHomeData() {
-        homeViewModel.getBanner()
-        homeViewModel.getArticle(currentPage)
+        homeViewModel.getBannerByFlow()
+        homeViewModel.getArticleByFlow(currentPage)
     }
 
     override fun getLayoutID(): Int = R.layout.fragment_home
@@ -77,7 +111,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
             ) {
                 Log.d(TAG, "onScrollStateChanged: last-----")
                 isLoadMore = true
-                homeViewModel.getArticle(currentPage + 1)
+                homeViewModel.getArticleByFlow(currentPage + 1)
             }
         }
     }
@@ -143,13 +177,65 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
 
     override fun onCollectClick(position: Int) {
         collectPosition = position
-        homeViewModel.collectEvent(list[position].id, list[collectPosition].collect)
+        homeViewModel.collectEventByFlow(list[position].id, list[collectPosition].collect)
     }
 
     private fun resetUI() {
         isLoadMore = false//加载更多完成，重置false
         if (mBind.srlHome.isRefreshing) {
             mBind.srlHome.isRefreshing = false
+        }
+    }
+
+    // TODO: 感觉这个属于重复代码，可以搞一搞
+    private fun handleCollectData(state: UiState<String>) {
+        when (state) {
+            is UiState.Loading -> showLoadingDialog()
+            is UiState.Success -> {
+                dismissLoadingDialog()
+                list[collectPosition].collect = if (list[collectPosition].collect) {
+                    ToastUtil.showMsg("取消收藏")
+                    false
+                } else {
+                    ToastUtil.showMsg("收藏成功")
+                    true
+                }
+                homeRVAdapter.notifyItemChanged(collectPosition)
+            }
+
+            is UiState.Error -> {
+                dismissLoadingDialog()
+                ToastUtil.showMsg("收藏失败")
+            }
+        }
+    }
+
+    private fun handleArticleData(state: UiState<Article>) {
+        when (state) {
+            is UiState.Loading -> {}
+
+            is UiState.Success -> {
+                val data = state.data
+                resetUI()
+                currentPage = data.curPage - 1
+                // 下拉刷新
+                if (currentPage == 0) list.clear()
+                // 最后一页
+                if (data.over) homeRVAdapter.isLastPage = true
+
+                list.addAll(data.datas)
+                if (currentPage == 0) {
+                    homeRVAdapter.setData(null)
+                    homeRVAdapter.setData(list)
+                    lm.scrollToPosition(0)
+                } else {
+                    homeRVAdapter.setData(list)
+                }
+            }
+
+            is UiState.Error -> {
+                resetUI()
+            }
         }
     }
 }

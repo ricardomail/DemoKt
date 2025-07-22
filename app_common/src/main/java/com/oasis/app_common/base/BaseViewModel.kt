@@ -2,6 +2,7 @@ package com.oasis.app_common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.oasis.app_common.util.AppLogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -9,7 +10,6 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 typealias vmBLOCK = suspend () -> Unit
-
 
 
 open class BaseViewModel : ViewModel() {
@@ -28,8 +28,10 @@ open class BaseViewModel : ViewModel() {
     }
 
     protected fun <T> safeApiCall(
-        onSuccess: suspend (T) -> Unit,
-        onError: suspend (Throwable) -> Unit,
+        onSuccess: suspend (T) -> Unit = {},
+        onError: suspend (Throwable) -> Unit = {
+            AppLogUtil.i(it.message!!)
+        },
         call: suspend () -> BaseResp<T>
     ) {
         viewModelScope.launch(Dispatchers.Main.immediate) {

@@ -14,15 +14,33 @@ class HomeRepo(private val api: HomeApi) : BaseRepository() {
         dealResp(data) { api.getBanner() }
 
 
-    suspend fun getArticle(currentPage: Int, data: RespStateMutableLiveData<Article>) = dealResp(data) {
-        api.getArticleList(currentPage, PAGE_SIZE)
-    }
+    suspend fun getArticle(currentPage: Int, data: RespStateMutableLiveData<Article>) =
+        dealResp(data) {
+            api.getArticleList(currentPage, PAGE_SIZE)
+        }
 
     suspend fun collect(id: Int, data: RespStateMutableLiveData<String>) = dealResp(data) {
         api.collect(id)
     }
 
     suspend fun unCollect(id: Int, data: RespStateMutableLiveData<String>) = dealResp(data) {
+        api.unCollect(id)
+    }
+
+    // flow
+    suspend fun getBanner() = dealResp {
+        api.getBanner()
+    }
+
+    suspend fun getArticle(currentPage: Int) = dealResp {
+        api.getArticleList(currentPage, PAGE_SIZE)
+    }
+
+    suspend fun collect(id: Int) = dealResp {
+        api.collect(id)
+    }
+
+    suspend fun unCollect(id: Int) = dealResp {
         api.unCollect(id)
     }
 }

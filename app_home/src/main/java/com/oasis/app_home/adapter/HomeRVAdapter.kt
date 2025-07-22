@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.oasis.app_common.util.Constants
 import com.oasis.app_common.util.Extension.dp2px
+import com.oasis.app_common.util.setSingleClickListener
 import com.oasis.app_home.R
 import com.oasis.app_home.bean.ArticleDetail
 import com.oasis.app_home.holder.MyFootHolder
@@ -24,8 +25,7 @@ private const val FOOT = 1
 private const val LAST = 2
 
 class HomeRVAdapter(private var listener: HomeItemClickListener) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(),
-    View.OnClickListener {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var diff: AsyncListDiffer<ArticleDetail>
     var isLastPage = false
 
@@ -74,7 +74,7 @@ class HomeRVAdapter(private var listener: HomeItemClickListener) :
             refreshPosition(holder.tag1, holder.tag2, holder.name)
             holder.collect.isSelected = data.collect
             holder.itemView.tag = position
-            holder.itemView.setOnClickListener(this)
+            holder.itemView.setSingleClickListener(onClick = ::viewClick)
             holder.collect.tag = position
             // 扩大收藏的点击范围
             holder.itemView.post {
@@ -86,7 +86,7 @@ class HomeRVAdapter(private var listener: HomeItemClickListener) :
                 hitRect.bottom += 20f.dp2px()
                 holder.itemView.touchDelegate = TouchDelegate(hitRect, holder.collect)
             }
-            holder.collect.setOnClickListener(this)
+            holder.collect.setSingleClickListener(onClick = ::viewClick)
         }
     }
 
@@ -109,20 +109,28 @@ class HomeRVAdapter(private var listener: HomeItemClickListener) :
         view.layoutParams = layoutParams
     }
 
-    private var lastClickTime: Long = 0
-    override fun onClick(v: View?) {
-        val currentTime = System.currentTimeMillis()
-        if (currentTime - lastClickTime > Constants.MIN_CLICK_DELAY_TIME && v != null) {
-            lastClickTime = currentTime
-
-            if (v.id == R.id.iv_collect) {
-                listener.onCollectClick(v.tag as Int)
-            } else {
-                listener.onItemClick(v.tag as Int)
-            }
-
+    private fun viewClick(v: View) {
+        if (v.id == R.id.iv_collect) {
+            listener.onCollectClick(v.tag as Int)
+        } else {
+            listener.onItemClick(v.tag as Int)
         }
     }
+
+//    private var lastClickTime: Long = 0
+//    override fun onClick(v: View?) {
+//        val currentTime = System.currentTimeMillis()
+//        if (currentTime - lastClickTime > Constants.MIN_CLICK_DELAY_TIME && v != null) {
+//            lastClickTime = currentTime
+//
+//            if (v.id == R.id.iv_collect) {
+//                listener.onCollectClick(v.tag as Int)
+//            } else {
+//                listener.onItemClick(v.tag as Int)
+//            }
+//
+//        }
+//    }
 
     override fun getItemViewType(position: Int): Int {
         return if (position == itemCount - 1) {
