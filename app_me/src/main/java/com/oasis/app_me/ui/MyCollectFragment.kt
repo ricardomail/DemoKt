@@ -23,7 +23,24 @@ class MyCollectFragment : BaseVMFragment<FragmentCollectBinding>() {
     private var list: MutableList<MyCollectDetail> = arrayListOf()
 
     override fun observe() {
-        meViewModel.collectList.observe(this, collectObserver)
+        launchByRepeat {
+            meViewModel.collectListState.collect {
+                handleUiState(it, needHandleLoading = true, onSuccess = { data, _ ->
+                    resetUI()
+                    currentPage = data.curPage - 1
+                    if (currentPage == 0) list.clear()
+                    if (data.over) collectRvAdapter.isLastPage = true
+                    list.addAll(data.datas)
+                    if (currentPage == 0) {
+                        collectRvAdapter.setData(null)
+                        collectRvAdapter.setData(list)
+                        lm.scrollToPosition(0)
+                    } else {
+                        collectRvAdapter.setData(list)
+                    }
+                }, onError = { resetUI() })
+            }
+        }
     }
 
     override fun init() {
@@ -54,27 +71,6 @@ class MyCollectFragment : BaseVMFragment<FragmentCollectBinding>() {
         }
     }
 
-    private val collectObserver = object : BaseStateObserver<MyCollect>() {
-        override fun getRespDataSuccess(data: MyCollect) {
-            resetUI()
-            currentPage = data.curPage - 1
-            if (currentPage == 0) list.clear()
-            if (data.over) collectRvAdapter.isLastPage = true
-            list.addAll(data.datas)
-            if (currentPage == 0) {
-                collectRvAdapter.setData(null)
-                collectRvAdapter.setData(list)
-                lm.scrollToPosition(0)
-            } else {
-                collectRvAdapter.setData(list)
-            }
-        }
-
-        override fun getRespDataEnd() {
-            resetUI()
-        }
-    }
-
     private val listener = object : CollectItemClickListener {
         override fun onClick(position: Int) {
             val data = list[position]
@@ -85,7 +81,7 @@ class MyCollectFragment : BaseVMFragment<FragmentCollectBinding>() {
         }
     }
 
-    private val scrollListener = object : RecyclerView.OnScrollListener(){
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             if (newState == RecyclerView.SCROLL_STATE_IDLE && collectRvAdapter.itemCount != 0 &&
                 (lm.findLastVisibleItemPosition() + 1) == collectRvAdapter.itemCount &&
