@@ -39,35 +39,25 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
 
 
     override fun observe() {
-//        homeViewModel.bannerList.observe(this, bannerObserver)
-//        homeViewModel.article.observe(this, articleObserver)
-//        homeViewModel.collectData.observe(this, collectObserver)
-        lifecycleScope.launch {
-
-            launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    homeViewModel.bannerListFlow.filter { it is UiState.Success }.map {
-                        (it as UiState.Success).data
-                    }.filterNotNull().filter { it.isNotEmpty() }.collect { result ->
-                        mBind.topView.refreshData(result)
-                    }
-                }
+        launchByRepeat {
+            homeViewModel.bannerListFlow.filter { it is UiState.Success }.map {
+                (it as UiState.Success).data
+            }.filterNotNull().filter { it.isNotEmpty() }.collect { result ->
+                mBind.topView.refreshData(result)
             }
-
-            launch {
-                homeViewModel.articleFlow.collect { state ->
-                    handleArticleData(state)
-                }
-            }
-
-            launch {
-                homeViewModel.collectFlow.collect { state ->
-                    handleCollectData(state)
-                }
-            }
-
         }
 
+        launchByRepeat {
+            homeViewModel.articleFlow.collect { state ->
+                handleArticleData(state)
+            }
+        }
+
+        launchByRepeat {
+            homeViewModel.collectFlow.collect { state ->
+                handleCollectData(state)
+            }
+        }
     }
 
     override fun init() {
@@ -116,21 +106,34 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
         }
     }
 
-    private val bannerObserver = object : BaseStateObserver<List<Banner>>() {
-        override fun getRespDataSuccess(data: List<Banner>) {
-            if (data.isNotEmpty()) {
-                mBind.topView.refreshData(data)
-            }
-        }
+    override fun onCollectClick(position: Int) {
+        collectPosition = position
+        homeViewModel.collectEventByFlow(list[position].id, list[collectPosition].collect)
+    }
 
-        override fun getRespDataEnd() {
-            resetUI()
+    private fun resetUI() {
+        isLoadMore = false//加载更多完成，重置false
+        if (mBind.srlHome.isRefreshing) {
+            mBind.srlHome.isRefreshing = false
         }
     }
 
+    private fun handleCollectData(state: UiState<String>) {
+        handleUiState(state, true, onSuccess = {
+            dismissLoadingDialog()
+            list[collectPosition].collect = if (list[collectPosition].collect) {
+                ToastUtil.showMsg("取消收藏")
+                false
+            } else {
+                ToastUtil.showMsg("收藏成功")
+                true
+            }
+            homeRVAdapter.notifyItemChanged(collectPosition)
+        }, onError = { ToastUtil.showMsg("收藏失败") })
+    }
 
-    private val articleObserver = object : BaseStateObserver<Article>() {
-        override fun getRespDataSuccess(data: Article) {
+    private fun handleArticleData(state: UiState<Article>) {
+        handleUiState(state, onSuccess = { data ->
             resetUI()
             currentPage = data.curPage - 1
             // 下拉刷新
@@ -146,96 +149,6 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
             } else {
                 homeRVAdapter.setData(list)
             }
-        }
-
-        override fun getRespDataEnd() {
-            resetUI()
-        }
-    }
-
-    private val collectObserver = object : BaseStateObserver<String>() {
-        override fun getRespDataStart() {
-            showLoadingDialog()
-        }
-
-        override fun getRespDataEnd() {
-            dismissLoadingDialog()
-        }
-
-        override fun getRespSuccess() {
-            dismissLoadingDialog()
-            list[collectPosition].collect = if (list[collectPosition].collect) {
-                ToastUtil.showMsg("取消收藏")
-                false
-            } else {
-                ToastUtil.showMsg("收藏成功")
-                true
-            }
-            homeRVAdapter.notifyItemChanged(collectPosition)
-        }
-    }
-
-    override fun onCollectClick(position: Int) {
-        collectPosition = position
-        homeViewModel.collectEventByFlow(list[position].id, list[collectPosition].collect)
-    }
-
-    private fun resetUI() {
-        isLoadMore = false//加载更多完成，重置false
-        if (mBind.srlHome.isRefreshing) {
-            mBind.srlHome.isRefreshing = false
-        }
-    }
-
-    // TODO: 感觉这个属于重复代码，可以搞一搞
-    private fun handleCollectData(state: UiState<String>) {
-        when (state) {
-            is UiState.Loading -> showLoadingDialog()
-            is UiState.Success -> {
-                dismissLoadingDialog()
-                list[collectPosition].collect = if (list[collectPosition].collect) {
-                    ToastUtil.showMsg("取消收藏")
-                    false
-                } else {
-                    ToastUtil.showMsg("收藏成功")
-                    true
-                }
-                homeRVAdapter.notifyItemChanged(collectPosition)
-            }
-
-            is UiState.Error -> {
-                dismissLoadingDialog()
-                ToastUtil.showMsg("收藏失败")
-            }
-        }
-    }
-
-    private fun handleArticleData(state: UiState<Article>) {
-        when (state) {
-            is UiState.Loading -> {}
-
-            is UiState.Success -> {
-                val data = state.data
-                resetUI()
-                currentPage = data.curPage - 1
-                // 下拉刷新
-                if (currentPage == 0) list.clear()
-                // 最后一页
-                if (data.over) homeRVAdapter.isLastPage = true
-
-                list.addAll(data.datas)
-                if (currentPage == 0) {
-                    homeRVAdapter.setData(null)
-                    homeRVAdapter.setData(list)
-                    lm.scrollToPosition(0)
-                } else {
-                    homeRVAdapter.setData(list)
-                }
-            }
-
-            is UiState.Error -> {
-                resetUI()
-            }
-        }
+        }, onError = { resetUI() })
     }
 }
