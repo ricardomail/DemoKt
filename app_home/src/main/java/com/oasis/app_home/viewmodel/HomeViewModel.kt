@@ -26,16 +26,15 @@ class HomeViewModel(private val repo: HomeRepo) : BaseViewModel() {
     var collectFlow: SharedFlow<UiState<String>> = _collectFlow.asSharedFlow()
 
     // flow
-    // TODO: 可以在safeApiCall方法中增加个预方法，用来切换emit的状态，防止去重
     fun getBannerByFlow() = safeApiCall(onSuccess = {
-        _bannerListFlow.emit(UiState.Success(it))
+        it?.run { _bannerListFlow.emit(UiState.Success(this)) }
     }) {
         _bannerListFlow.emit(UiState.Loading)
         repo.getBanner()
     }
 
     fun getArticleByFlow(currentPage: Int) = safeApiCall(onSuccess = {
-        _articleFlow.emit(UiState.Success(it))
+        it?.run { _articleFlow.emit(UiState.Success(this)) }
     }, onError = {
         _articleFlow.emit(UiState.Error(it.message!!))
     }) {

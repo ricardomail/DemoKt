@@ -49,7 +49,7 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
     fun <T> handleUiState(
         state: UiState<T>, needHandleLoading: Boolean = false, onLoading: () -> Unit = {
 
-        }, onSuccess: (T) -> Unit = {
+        }, onSuccess: (T, String) -> Unit = { _, _ ->
 
         }, onError: (String) -> Unit = {
         }, onFinish: () -> Unit = { if (needHandleLoading) dismissLoadingDialog() }
@@ -62,7 +62,7 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
             is UiState.Success -> {
                 dismissLoadingDialog()
-                onSuccess.invoke(state.data)
+                onSuccess.invoke(state.data, state.message)
             }
 
             is UiState.Error -> {

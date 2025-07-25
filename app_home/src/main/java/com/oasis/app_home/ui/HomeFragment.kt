@@ -119,7 +119,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
     }
 
     private fun handleCollectData(state: UiState<String>) {
-        handleUiState(state, true, onSuccess = {
+        handleUiState(state, true, onSuccess = { _, _ ->
             dismissLoadingDialog()
             list[collectPosition].collect = if (list[collectPosition].collect) {
                 ToastUtil.showMsg("取消收藏")
@@ -129,11 +129,11 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
                 true
             }
             homeRVAdapter.notifyItemChanged(collectPosition)
-        }, onError = { ToastUtil.showMsg("收藏失败") })
+        }, onError = { ToastUtil.showMsg("收藏失败 $it") })
     }
 
     private fun handleArticleData(state: UiState<Article>) {
-        handleUiState(state, onSuccess = { data ->
+        handleUiState(state, onSuccess = { data, _ ->
             resetUI()
             currentPage = data.curPage - 1
             // 下拉刷新
