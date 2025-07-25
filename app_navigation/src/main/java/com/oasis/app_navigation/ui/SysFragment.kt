@@ -28,16 +28,18 @@ class SysFragment : BaseVMFragment<FragmentSysBinding>() {
 
     override fun observe() {
         f = parentFragment as MainFragment
-        naviViewModel.sysList.observe(this, object : BaseStateObserver<List<Sys>>() {
-            override fun getRespDataSuccess(it: List<Sys>) {
-                for (i in 0..19) {
-                    myData.add(it[i])
-                }
-                addView(myData)
-                sysAdapter.setData(myData)
-                Log.d(TAG, "observe: update data")
+        launchByRepeat {
+            naviViewModel.sysListState.collect {
+                handleUiState(it, needHandleLoading = true, onSuccess = { data, _ ->
+                    for (i in 0..19) {
+                        myData.add(data[i])
+                    }
+                    addView(myData)
+                    sysAdapter.setData(myData)
+                    Log.d(TAG, "observe: update data")
+                })
             }
-        })
+        }
     }
 
     override fun init() {

@@ -44,10 +44,6 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
-
     private fun onError(e: Exception) {
 
     }

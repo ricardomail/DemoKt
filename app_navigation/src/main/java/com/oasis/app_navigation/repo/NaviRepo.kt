@@ -15,4 +15,12 @@ class NaviRepo(private val api: NaviApi) : BaseRepository() {
     suspend fun getNavi(data: RespStateMutableLiveData<List<Navi>>) = dealResp(data) {
         api.getNavi()
     }
+
+    suspend fun getSysByFlow() = dealResp {
+        api.getSys()
+    }
+
+    suspend fun getNaviByFlow() = dealResp {
+        api.getNavi()
+    }
 }

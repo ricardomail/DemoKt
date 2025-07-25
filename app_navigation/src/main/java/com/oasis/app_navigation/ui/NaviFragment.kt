@@ -27,15 +27,17 @@ class NaviFragment : BaseVMFragment<FragmentSysBinding>() {
     private lateinit var lm: LinearLayoutManager
     override fun observe() {
         container = parentFragment as MainFragment
-        naviViewModel.naviList.observe(this, object : BaseStateObserver<List<Navi>>() {
-            override fun getRespDataSuccess(data: List<Navi>) {
-                for (i in 0..19) {
-                    myData.add(data[i])
-                }
-                addView(myData)
-                naviRVAdapter.setData(myData)
+        launchByRepeat {
+            naviViewModel.naviListState.collect { data ->
+                handleUiState(state = data, needHandleLoading = true, onSuccess = { data, _ ->
+                    for (i in 0..19) {
+                        myData.add(data[i])
+                    }
+                    addView(myData)
+                    naviRVAdapter.setData(myData)
+                })
             }
-        })
+        }
     }
 
     private fun addView(list: List<Navi>) {

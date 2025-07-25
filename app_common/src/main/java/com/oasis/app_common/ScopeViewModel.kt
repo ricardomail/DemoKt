@@ -1,11 +1,16 @@
 package com.oasis.app_common
 
+import androidx.lifecycle.viewModelScope
+import com.oasis.app_common.base.BaseResp
 import com.oasis.app_common.base.BaseViewModel
+import com.oasis.app_common.util.AppLogUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import java.io.IOException
 import java.util.concurrent.atomic.AtomicBoolean
 
 open class ScopeViewModel : BaseViewModel() {
@@ -36,6 +41,27 @@ open class ScopeViewModel : BaseViewModel() {
             CoroutineScope(supervisorJob + Dispatchers.Main.immediate)
         } finally {
             isCreatingScope.set(false)
+        }
+    }
+
+
+    protected fun <T> safeApiCallByOtherScope(
+        onSuccess: suspend (T?) -> Unit = {},
+        onError: suspend (Throwable) -> Unit = {
+            AppLogUtil.i(it.message!!)
+        },
+        call: suspend () -> BaseResp<T>
+    ) {
+        currentScope.launch(Dispatchers.Main.immediate) {
+            val result = call.invoke()
+            when (result.responseState) {
+                BaseResp.ResponseState.REQUEST_SUCCESS -> onSuccess(result.data)
+                BaseResp.ResponseState.REQUEST_FAILED, BaseResp.ResponseState.REQUEST_ERROR -> onError(
+                    IOException(result.errorMsg)
+                )
+
+                else -> {}
+            }
         }
     }
 
