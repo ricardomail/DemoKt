@@ -17,6 +17,7 @@ class MeViewModel(private val meRepo: MeRepo) : BaseViewModel() {
     fun getCollectList(currentPage: Int) = safeApiCall(onSuccess = {
         it?.run { _collectListState.emit(UiState.Success(this)) }
     }, onError = {_collectListState.emit(UiState.Error(it.message?:""))}) {
+        _collectListState.emit(UiState.Loading)
         meRepo.getCollectedByFlow(currentPage)
     }
 }
