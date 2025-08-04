@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@color/pro_rv_item"
         android:padding="10dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
