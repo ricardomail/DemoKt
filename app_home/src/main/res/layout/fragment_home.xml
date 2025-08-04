@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="180dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.oasis.app_common.widget.MyRecyclerView
                 android:id="@+id/bottom_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

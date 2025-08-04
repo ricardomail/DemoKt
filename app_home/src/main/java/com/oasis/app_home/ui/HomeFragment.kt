@@ -22,6 +22,7 @@ import com.oasis.app_home.listener.HomeItemClickListener
 import com.oasis.app_home.viewmodel.HomeViewModel
 import com.oasis.app_common.base.BaseStateObserver
 import com.oasis.app_common.base.UiState
+import com.oasis.app_common.widget.DrawItemDecoration
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
@@ -72,6 +73,7 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
         mBind.bottomView.layoutManager = lm
         homeRVAdapter = HomeRVAdapter(this)
         mBind.bottomView.adapter = homeRVAdapter
+//        mBind.bottomView.addItemDecoration(DrawItemDecoration())
         mBind.bottomView.addOnScrollListener(scrollListener)
         mBind.srlHome.setColorSchemeResources(com.oasis.app_common.R.color.theme_color)
         mBind.srlHome.setOnRefreshListener {
