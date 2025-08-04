@@ -2,6 +2,9 @@ package com.oasis.mydemokt.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,6 +14,7 @@ import com.oasis.app_common.util.AppLogUtil
 import com.oasis.mydemokt.R
 import com.oasis.mydemokt.Test
 import com.oasis.mydemokt.databinding.ActivityTestBinding
+import com.oasis.mydemokt.databinding.MergeContentBinding
 import com.xj.anchortask.library.log.LogUtils
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.getKoin
@@ -33,16 +37,21 @@ class TestActivity : BaseActivity<ActivityTestBinding>() {
         )
     }
 
-        private val test: Test by lazy {
+    private val test: Test by lazy {
         activityScope.get()
     }
-//    private val test: Test by inject<Test>()
+
+    //    private val test: Test by inject<Test>()
     override fun getLayoutID(): Int {
         return R.layout.activity_test
     }
 
     override fun init() {
-        mBind.button.setOnClickListener {
+//        val root =
+//            LayoutInflater.from(this).inflate(R.layout.merge_content, parent.window.decorView as ViewGroup, true)
+//        val binding = MergeContentBinding.bind(root)
+        val button = mBind.root.findViewById<Button>(R.id.button)
+        button.setOnClickListener {
             AppLogUtil.i("Click button to jump page")
             startActivity(Intent(this, MainActivity::class.java))
         }
