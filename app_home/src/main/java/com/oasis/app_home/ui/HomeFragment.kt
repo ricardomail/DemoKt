@@ -1,11 +1,14 @@
 package com.oasis.app_home.ui
 
 import android.util.Log
+import android.widget.LinearLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.alibaba.android.arouter.launcher.ARouter
 import com.oasis.app_common.base.BaseVMFragment
@@ -73,7 +76,9 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(), HomeItemClickListene
         mBind.bottomView.layoutManager = lm
         homeRVAdapter = HomeRVAdapter(this)
         mBind.bottomView.adapter = homeRVAdapter
-//        mBind.bottomView.addItemDecoration(DrawItemDecoration())
+        mBind.bottomView.addItemDecoration(
+            DrawItemDecoration()
+        )
         mBind.bottomView.addOnScrollListener(scrollListener)
         mBind.srlHome.setColorSchemeResources(com.oasis.app_common.R.color.theme_color)
         mBind.srlHome.setOnRefreshListener {
