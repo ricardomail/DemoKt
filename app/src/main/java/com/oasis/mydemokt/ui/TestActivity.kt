@@ -53,8 +53,12 @@ class TestActivity : BaseActivity<ActivityTestBinding>() {
         val button = mBind.root.findViewById<Button>(R.id.button)
         button.setOnClickListener {
             AppLogUtil.i("Click button to jump page")
+            val helloTest = com.oasis.app_common.service.Test()
+            helloTest.testService()
             startActivity(Intent(this, MainActivity::class.java))
         }
+
+
     }
 
 }
