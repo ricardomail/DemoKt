@@ -7,9 +7,10 @@ class Test {
     init {
         ARouter.getInstance().inject(this)
     }
-
-//    @Autowired
-//    var helloService: HelloService? = null
+    // kotlin中需要增加@JvmField注解
+    @Autowired
+    @JvmField
+    var helloService: HelloService? = null
 //
 //    @Autowired(name = "/app_network/service/hello")
 //    var helloService2: HelloService? = null
@@ -24,9 +25,9 @@ class Test {
 //        helloService3?.sayHello("123")
 
         helloService4 = ARouter.getInstance().navigation(HelloService::class.java)
-        helloService4?.sayHello("123")
-
-//        helloService2?.sayHello("123")
+//        helloService4?.sayHello("123")
+//
+//        helloService?.sayHello("123")
     }
 
 

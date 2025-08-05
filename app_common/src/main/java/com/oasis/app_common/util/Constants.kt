@@ -25,6 +25,7 @@ class Constants {
 
         const val PATH_WEB: String = "/app_web/ui/WebActivity"
         const val PATH_LOGIN: String = "/app_user/ui/LoginActivity"
+        const val PATH_MAIN: String = "/app/ui/MainActivity"
 
         //kv
         const val USER_NAME: String = "user_name"

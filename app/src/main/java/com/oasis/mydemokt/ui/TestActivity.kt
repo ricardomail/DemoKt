@@ -9,8 +9,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.alibaba.android.arouter.launcher.ARouter
 import com.oasis.app_common.base.BaseActivity
 import com.oasis.app_common.util.AppLogUtil
+import com.oasis.app_common.util.Constants
 import com.oasis.mydemokt.R
 import com.oasis.mydemokt.Test
 import com.oasis.mydemokt.databinding.ActivityTestBinding
@@ -53,9 +55,10 @@ class TestActivity : BaseActivity<ActivityTestBinding>() {
         val button = mBind.root.findViewById<Button>(R.id.button)
         button.setOnClickListener {
             AppLogUtil.i("Click button to jump page")
-            val helloTest = com.oasis.app_common.service.Test()
-            helloTest.testService()
-            startActivity(Intent(this, MainActivity::class.java))
+//            val helloTest = com.oasis.app_common.service.Test()
+//            helloTest.testService()
+//            startActivity(Intent(this, MainActivity::class.java))
+            ARouter.getInstance().build(Constants.PATH_MAIN).navigation()
         }
 
 

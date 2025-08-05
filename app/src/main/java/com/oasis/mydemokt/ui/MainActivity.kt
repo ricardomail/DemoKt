@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.oasis.app_common.base.BaseActivity
 import com.oasis.app_common.di.ScopeOwner
 import com.oasis.app_common.di.ScopeProvider
+import com.oasis.app_common.util.Constants
+import com.oasis.app_common.util.RouteExtras
 import com.oasis.app_home.ui.HomeFragment
 import com.oasis.app_me.ui.MyCollectFragment
 import com.oasis.app_navigation.ui.MainFragment
@@ -22,7 +25,7 @@ import org.koin.core.component.KoinScopeComponent
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
-
+@Route(path = Constants.PATH_MAIN, extras = RouteExtras.NEED_LOGIN)
 class MainActivity : BaseActivity<ActivityMainBinding>(), ScopeOwner {
 
     private lateinit var fragmentList: MutableList<Fragment>
