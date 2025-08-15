@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -71,7 +73,7 @@ class HomeRVAdapter(private var listener: HomeItemClickListener) :
             holder.tag1.visibility = if (data.fresh) View.VISIBLE else View.GONE
             holder.tag2.visibility = if (data.superChapterId == 408) View.VISIBLE else View.GONE
             holder.name.text = data.author.ifEmpty { data.shareUser }
-            refreshPosition(holder.tag1, holder.tag2, holder.name)
+            refreshPosition(holder.tag1, holder.tag2, holder.name, holder.parent)
             holder.collect.isSelected = data.collect
             holder.itemView.tag = position
             holder.itemView.setSingleClickListener(onClick = ::viewClick)
@@ -90,17 +92,69 @@ class HomeRVAdapter(private var listener: HomeItemClickListener) :
         }
     }
 
-    // TODO: 后期需要修改为constraintLayout 
-    private fun refreshPosition(tag1: TextView, tag2: TextView, name: TextView) {
-        if (tag1.visibility == View.VISIBLE) return
+    private fun refreshPosition(
+        tag1: TextView,
+        tag2: TextView,
+        name: TextView,
+        parent: ConstraintLayout
+    ) {
+        val set = ConstraintSet()
+        set.clone(parent)
+        if (tag1.visibility == View.VISIBLE && tag2.visibility == View.VISIBLE){
+            set.clear(R.id.tv_name, ConstraintSet.START)
+            set.clear(R.id.tv_tag_2, ConstraintSet.START)
+            set.connect(
+                R.id.tv_name,
+                ConstraintSet.START,
+                R.id.tv_tag_2,
+                ConstraintSet.END
+            )
+            set.connect(
+                R.id.tv_tag_2,
+                ConstraintSet.START,
+                R.id.tv_tag_1,
+                ConstraintSet.END
+            )
+            set.setMargin(R.id.tv_name, ConstraintSet.START, 10f.dp2px())
+
+        }
+
+
+
         if (tag1.visibility == View.GONE && tag2.visibility == View.GONE) {
-            resetMargin(name, 0)
+            set.clear(R.id.tv_name, ConstraintSet.START)
+            set.connect(
+                R.id.tv_name,
+                ConstraintSet.START,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.START
+            )
         }
 
         if (tag1.visibility == View.GONE && tag2.visibility == View.VISIBLE) {
-            resetMargin(tag2, 0)
-            resetMargin(name, 10f.dp2px())
+            set.clear(R.id.tv_tag_2, ConstraintSet.START)
+            set.clear(R.id.tv_name, ConstraintSet.START)
+            set.connect(
+                R.id.tv_tag_2,
+                ConstraintSet.START,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.START
+            )
+            set.connect(
+                R.id.tv_name,
+                ConstraintSet.START,
+                R.id.tv_tag_2,
+                ConstraintSet.END
+            )
+            set.setMargin(R.id.tv_name, ConstraintSet.START, 10f.dp2px())
         }
+
+        if (tag1.visibility == View.VISIBLE && tag2.visibility == View.GONE) {
+            set.clear(R.id.tv_name, ConstraintSet.START)
+            set.connect(R.id.tv_name, ConstraintSet.START, R.id.tv_tag_1, ConstraintSet.START)
+        }
+
+        set.applyTo(parent)
     }
 
     private fun resetMargin(view: TextView, margin: Int) {

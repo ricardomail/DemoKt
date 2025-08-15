@@ -3,6 +3,7 @@ package com.oasis.app_home.holder
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.oasis.app_home.R
 
@@ -14,6 +15,7 @@ class MyViewHolder(item: View) : RecyclerView.ViewHolder(item) {
     var tag1: TextView = item.findViewById(R.id.tv_tag_1)
     var tag2: TextView = item.findViewById(R.id.tv_tag_2)
     var collect: ImageView = item.findViewById(R.id.iv_collect)
+    var parent: ConstraintLayout = item.findViewById(R.id.cl_parent)
 }
 
 class MyFootHolder(item: View) : RecyclerView.ViewHolder(item)
