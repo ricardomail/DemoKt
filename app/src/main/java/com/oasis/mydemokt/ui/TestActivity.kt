@@ -57,8 +57,9 @@ class TestActivity : BaseActivity<ActivityTestBinding>() {
             AppLogUtil.i("Click button to jump page")
 //            val helloTest = com.oasis.app_common.service.Test()
 //            helloTest.testService()
-//            startActivity(Intent(this, MainActivity::class.java))
-            ARouter.getInstance().build(Constants.PATH_MAIN).navigation()
+            startActivity(Intent(this, MainActivity::class.java))
+//            ARouter.getInstance().build(Constants.PATH_HYBIRD).navigation()
+
         }
 
 
